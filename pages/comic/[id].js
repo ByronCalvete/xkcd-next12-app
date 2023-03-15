@@ -1,8 +1,10 @@
-import PageLayout from '../../components/PageLayout'
-import { readFile, stat, readdir } from 'fs/promises'
-import { basename } from 'path'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import PageLayout from '../../components/PageLayout'
+
+import { basename } from 'node:path'
+import { readFile, stat, readdir } from 'node:fs/promises'
 
 export default function Comic ({ img, alt, title, width, height, hasPrevious, hasNext, prevId, nextId }) {
   return (
