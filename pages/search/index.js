@@ -2,11 +2,13 @@ import PageLayout from "../../components/PageLayout"
 import Link from 'next/link'
 import Image from 'next/image'
 import { search } from '../../services/search.js'
+import { useI18n } from '../../context/i18n'
 
 const Search = ({ query, results }) => {
+  const { t } = useI18n()
   return (
-    <PageLayout title={`Next XKCD - Search results ${query}`}>
-      <h1 className='text-center'>{`${results.length} Results for ${query}`}</h1>
+    <PageLayout title={t('SEO_TITLE_SEARCH', query)}>
+      <h1 className='text-center'>{t('SEARCH_RESULTS_TITLE', results.length, query)}</h1>
       {
         results.map(result => {
           return (
@@ -29,7 +31,6 @@ export async function getServerSideProps (context) {
   const { query } = context
   const { q = '' } = query
 
-  // fetch algolia's api for search the results
   const { results } = await search({ query: q })
 
   return {

@@ -1,10 +1,13 @@
 import { NextUIProvider } from '@nextui-org/react'
+import { I18nProvider } from '../context/i18n'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
   return (
     <NextUIProvider>
-      <Component {...pageProps} />
+      <I18nProvider>
+        <Component {...pageProps} />
+      </I18nProvider>
     </NextUIProvider>
   )
 }

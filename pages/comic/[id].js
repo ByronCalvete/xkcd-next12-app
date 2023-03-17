@@ -11,7 +11,7 @@ export default function Comic ({ img, alt, title, width, height, hasPrevious, ha
     <PageLayout title={`Next XKCD - ${title}`}>
       <section className='max-w-lg m-auto'>
         <h1 className='text-center font-bold'>{title}</h1>
-        <Image src={img} width={width} height={height} alt={alt}/>
+        <Image className='m-auto mt-4 mb-4' src={img} width={width} height={height} alt={alt}/>
         <p>{alt}</p>
         <div className='flex justify-between mt-4 font-bold'>
           {hasPrevious && <Link className='text-gray-500 ' href={`/comic/${prevId}`}>⬅ Previous</Link>}
@@ -22,12 +22,18 @@ export default function Comic ({ img, alt, title, width, height, hasPrevious, ha
   )
 }
 
-export async function getStaticPaths () {
+export async function getStaticPaths ({ locales }) {
   const files = await readdir('./comics')
+  let paths = []
 
-  const paths = files.map(file => {
-    const id = basename(file, '.json')
-    return { params: { id } }
+  // locales -> ['es', 'en']
+  locales.forEach(locale => {
+    const pathsForLocale = files.map(file => {
+      const id = basename(file, '.json')
+      return { params: { id }, locale }
+    })
+
+    paths = [...paths, ...pathsForLocale]
   })
 
   return {
