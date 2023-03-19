@@ -1,6 +1,9 @@
 import algoliasearch from "algoliasearch/lite"
 
-const client = algoliasearch('7BCVZDH1JE', 'e807c26225aaa0603964f36c84e10516')
+const APP_ID = process.env.APP_ID
+const API_KEY = process.env.API_KEY
+
+const client = algoliasearch(APP_ID, API_KEY)
 const index = client.initIndex('xkcd')
 
 const CACHE = {}
